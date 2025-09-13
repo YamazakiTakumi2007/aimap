@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>マイマップ - ピン配置アプリ</title>
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <h1 class="app-title">マイマップ - ピン配置アプリ</h1>
+            <div class="header-controls">
+                <span class="pin-count">ピン数: <span id="pinCount">0</span></span>
+                <button id="clearAllBtn" class="btn btn-danger">全ピン削除</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h3>ピン一覧</h3>
+                <div class="search-container">
+                    <input type="text" id="searchInput" placeholder="タイトルで検索...">
+                    <button id="searchBtn" class="btn btn-secondary">検索</button>
+                </div>
+            </div>
+            <div class="pin-list" id="pinList">
+                <p class="no-pins">まだピンが配置されていません</p>
+            </div>
+        </aside>
+
+        <!-- Map Container -->
+        <main class="map-container">
+            <div id="map"></div>
+
+            <!-- Instructions -->
+            <div class="instructions">
+                <p>地図上をクリックしてピンを配置してください</p>
+            </div>
+        </main>
+    </div>
+
+    <!-- Comment Modal -->
+    <div id="commentModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">ピン情報を入力</h3>
+                <span class="close">&times;</span>
+            </div>
+            <form id="commentForm" class="modal-body">
+                <div class="form-group">
+                    <label for="pinTitle">タイトル (最大50文字)</label>
+                    <input type="text" id="pinTitle" maxlength="50" required>
+                    <span class="char-count" id="titleCount">0/50</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="pinDescription">説明 (最大200文字)</label>
+                    <textarea id="pinDescription" maxlength="200" rows="4"></textarea>
+                    <span class="char-count" id="descCount">0/200</span>
+                </div>
+
+                <div class="form-group">
+                    <label>位置情報</label>
+                    <div class="location-info">
+                        <span>緯度: <span id="modalLat">-</span></span>
+                        <span>経度: <span id="modalLng">-</span></span>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" id="cancelBtn" class="btn btn-secondary">キャンセル</button>
+                    <button type="submit" class="btn btn-primary">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Pin Info Modal -->
+    <div id="pinInfoModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="infoModalTitle">ピン情報</h3>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="pin-info">
+                    <h4 id="infoPinTitle"></h4>
+                    <p id="infoPinDescription"></p>
+                    <div class="pin-meta">
+                        <small>作成日時: <span id="infoPinDate"></span></small>
+                        <small>位置: <span id="infoPinLocation"></span></small>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="editPinBtn" class="btn btn-secondary">編集</button>
+                    <button type="button" id="deletePinBtn" class="btn btn-danger">削除</button>
+                    <button type="button" id="closeInfoBtn" class="btn btn-primary">閉じる</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Container -->
+    <div id="notification" class="notification"></div>
+
+    <!-- Scripts -->
+    <!-- Leaflet JavaScript -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
